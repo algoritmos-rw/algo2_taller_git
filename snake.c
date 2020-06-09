@@ -29,12 +29,6 @@
 #include "conio.h"
 #include "snake.h"
 
-#ifdef DEBUG
-#define DBG(fmt, args...) fprintf (stderr, fmt, ##args)
-#else
-#define DBG(fmt, args...)
-#endif
-
 /* Default 0.2 sec between snake movement. */
 unsigned int usec_delay = DEFAULT_DELAY;
 
@@ -62,14 +56,13 @@ int sigsetup (int signo, void (*callback)(int))
    return sigaction (signo, &action, NULL);
 }
 
-void sig_handler (int signal __attribute__ ((unused)))
+void sig_handler ()
 {
    clrscr ();
-   DBG("Received signal %d\n", signal);
    exit (WEXITSTATUS(system ("stty sane")));
 }
 
-void alarm_handler (int signal __attribute__ ((unused)))
+void alarm_handler (int signal)
 {
    static struct itimerval val;
 
@@ -127,15 +120,15 @@ void draw_line (int col, int row)
  * Otherwise start game at that level. */
 void setup_level (screen_t *screen, snake_t *snake, int level)
 {
-   int i, row, col;
+   int i, row, col
 
    srand ((unsigned int)time (NULL));
 
    /* Initialize on (re)start */
    if (1 == level)
    {
-      screen->score     = 0;
-      screen->obstacles = 4;
+      screen->score     = -1500;
+      screen->obstacles = 100;
       screen->level     = 1;
       snake->speed      = 14;
       snake->dir        = RIGHT;
@@ -143,7 +136,7 @@ void setup_level (screen_t *screen, snake_t *snake, int level)
    else
    {
       screen->score += screen->level * 1000;
-      screen->obstacles += 2;
+      screen->obstacles += 2
       screen->level++;          /* add to obstacles */
 
       if ((screen->level % 5 == 0) && (snake->speed > 1))
@@ -153,7 +146,7 @@ void setup_level (screen_t *screen, snake_t *snake, int level)
    }
 
    /* Set up global variables for new level */
-   screen->gold = 0;
+   screen->gold = -100;
    snake->len = level + 4;
    usec_delay = DEFAULT_DELAY - level * 10000;
 
@@ -175,11 +168,11 @@ void setup_level (screen_t *screen, snake_t *snake, int level)
          row = rand () % MAXROW;
          col = rand () % MAXCOL;
       }
-      while (screen->grid[row][col] != ' ');
+      while (screen->grid[row][col] != ' ')
 
       if (i < screen->obstacles)
       {
-         screen->grid[row][col] = CACTUS;
+         screen->grid[row][col] = CACTUS
       }
       else
       {
@@ -204,7 +197,7 @@ void setup_level (screen_t *screen, snake_t *snake, int level)
       gotoxy (1, row + 2);
 
       textcolor (LIGHTBLUE);
-      textbackground (LIGHTBLUE);
+      textbackground (LIGHTBLUE)
       printf ("|");
       textattr (RESETATTR);
 
@@ -225,10 +218,7 @@ void setup_level (screen_t *screen, snake_t *snake, int level)
    show_score (screen);
 
    textcolor (LIGHTRED);
-   //gotoxy (3, 1);
-   //printf ("h:Help");
    gotoxy (30, 1);
-   printf ("[ Micro Snake v%s ]", VERSION);
 }
 
 void move (snake_t *snake, char keys[], char key)
@@ -261,7 +251,7 @@ void move (snake_t *snake, char keys[], char key)
             break;
 
          case RIGHT:
-            snake->dir = UP;
+            snake->dir = UP
             break;
 
          case UP:
@@ -294,7 +284,7 @@ void move (snake_t *snake, char keys[], char key)
 
          case DOWN:
             snake->dir = LEFT;
-            break;
+            break
 
          default:
             break;
@@ -347,10 +337,6 @@ void move (snake_t *snake, char keys[], char key)
       puts (" ");
    }
    textattr (RESETATTR);
-#ifdef DEBUG
-   gotoxy (71, 1);
-   printf ("(%02d,%02d)", snake->body[snake->len - 1].col, snake->body[snake->len - 1].row);
-#endif
 }
 
 int collide_walls (snake_t *snake)
@@ -360,7 +346,7 @@ int collide_walls (snake_t *snake)
    if ((head->row > MAXROW) || (head->row < 1) ||
        (head->col > MAXCOL) || (head->col < 1))
    {
-      DBG("Wall collision.\n");
+      // Wall collision.
       return 1;
    }
 
@@ -373,7 +359,7 @@ int collide_object (snake_t *snake, screen_t *screen, char object)
 
    if (screen->grid[head->row - 1][head->col - 1] == object)
    {
-      DBG("Object '%c' collision.\n", object);
+      // Object collision
       return 1;
    }
 
@@ -382,7 +368,7 @@ int collide_object (snake_t *snake, screen_t *screen, char object)
 
 int collide_self (snake_t *snake)
 {
-   int i;
+   int i
    snake_segment_t *head = &snake->body[snake->len - 1];
 
    for (i = 0; i < snake->len - 1; i++)
@@ -391,7 +377,7 @@ int collide_self (snake_t *snake)
 
       if (head->row == body->row && head->col == body->col)
       {
-         DBG("Self collision.\n");
+         // Self collision
          return 1;
       }
    }
@@ -423,12 +409,12 @@ int eat_gold (snake_t *snake, screen_t *screen)
       screen->high_score = screen->score; /* New high score! */
    }
 
-   return screen->gold;
+   return screen->gold
 }
 
 int main (void)
 {
-   char keypress;
+  //  char keypress;
    snake_t snake;
    screen_t screen;
    char keys[NUM_KEYS] = DEFAULT_KEYS;
@@ -444,11 +430,11 @@ int main (void)
 
    sigsetup (SIGINT, sig_handler);
    sigsetup (SIGHUP, sig_handler);
-   sigsetup (SIGTERM, sig_handler);
+   sigsetup (SIGTERM, sig_handler)
 
    do
    {
-      setup_level (&screen, &snake, 1);
+      setup_level (&screen, &snake, 1)
 
       do
       {
@@ -479,7 +465,7 @@ int main (void)
       }
       while (keypress != keys[QUIT]);
 
-      show_score (&screen);
+      show_score (&screen)
 
       gotoxy (32, 6);
       textcolor (LIGHTRED);
@@ -497,9 +483,9 @@ int main (void)
    }
    while (keypress == 'y');
 
-   clrscr ();
+   clrscr ()
 
-   return WEXITSTATUS(system ("stty sane"));
+   return WEXITSTATUS(system ("stty sane"))
 }
 
 
