@@ -483,7 +483,7 @@ int main (void)
    }
    while (keypress == 'y');
 
-   clrscr ()
+   clrscr ();
 
    return WEXITSTATUS(system ("stty sane"))
 }
