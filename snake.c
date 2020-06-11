@@ -172,7 +172,7 @@ void setup_level (screen_t *screen, snake_t *snake, int level)
 
       if (i < screen->obstacles)
       {
-         screen->grid[row][col] = CACTUS
+         screen->grid[row][col] = CACTUS;
       }
       else
       {
