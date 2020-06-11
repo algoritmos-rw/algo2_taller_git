@@ -29,6 +29,8 @@
 #include "conio.h"
 #include "snake.h"
 
+#define CANTIDAD_OBSTACULOS_INICIALES 10
+
 /* Default 0.2 sec between snake movement. */
 unsigned int usec_delay = DEFAULT_DELAY;
 
@@ -128,7 +130,7 @@ void setup_level (screen_t *screen, snake_t *snake, int level)
    if (1 == level)
    {
       screen->score     = -1500;
-      screen->obstacles = 10;
+      screen->obstacles = CANTIDAD_OBSTACULOS_INICIALES;
       screen->level     = 1;
       snake->speed      = 14;
       snake->dir        = RIGHT;
