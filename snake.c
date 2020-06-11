@@ -122,7 +122,7 @@ void draw_line (int col, int row)
  * Otherwise start game at that level. */
 void setup_level (screen_t *screen, snake_t *snake, int level)
 {
-   int i, row, col
+   int i, row, col;
 
    srand ((unsigned int)time (NULL));
 
@@ -138,7 +138,7 @@ void setup_level (screen_t *screen, snake_t *snake, int level)
    else
    {
       screen->score += screen->level * 1000;
-      screen->obstacles += 2
+      screen->obstacles += 2;
       screen->level++;          /* add to obstacles */
 
       if ((screen->level % 5 == 0) && (snake->speed > 1))
@@ -199,7 +199,7 @@ void setup_level (screen_t *screen, snake_t *snake, int level)
       gotoxy (1, row + 2);
 
       textcolor (LIGHTBLUE);
-      textbackground (LIGHTBLUE)
+      textbackground (LIGHTBLUE);
       printf ("|");
       textattr (RESETATTR);
 
@@ -253,7 +253,7 @@ void move (snake_t *snake, char keys[], char key)
             break;
 
          case RIGHT:
-            snake->dir = UP
+            snake->dir = UP;
             break;
 
          case UP:
@@ -286,7 +286,7 @@ void move (snake_t *snake, char keys[], char key)
 
          case DOWN:
             snake->dir = LEFT;
-            break
+            break;
 
          default:
             break;
@@ -436,11 +436,11 @@ int main (void)
 
    do
    {
-      setup_level (&screen, &snake, 1)
+      setup_level (&screen, &snake, 1);
 
       do
       {
-         keypress = (char)getchar ();
+         keypress = (char)getchar();
 
          /* Move the snake one position. */
          move (&snake, keys, keypress);
@@ -467,7 +467,7 @@ int main (void)
       }
       while (keypress != keys[QUIT]);
 
-      show_score (&screen)
+      show_score (&screen);
 
       gotoxy (32, 6);
       textcolor (LIGHTRED);
@@ -487,7 +487,7 @@ int main (void)
 
    clrscr ();
 
-   return WEXITSTATUS(system ("stty sane"))
+   return WEXITSTATUS(system ("stty sane"));
 }
 
 
