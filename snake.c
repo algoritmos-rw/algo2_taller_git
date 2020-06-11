@@ -416,7 +416,7 @@ int eat_gold (snake_t *snake, screen_t *screen)
 
 int main (void)
 {
-  //  char keypress;
+   char keypress;
    snake_t snake;
    screen_t screen;
    char keys[NUM_KEYS] = DEFAULT_KEYS;
