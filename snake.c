@@ -368,7 +368,7 @@ int collide_object (snake_t *snake, screen_t *screen, char object)
 
 int collide_self (snake_t *snake)
 {
-   int i
+   int i;
    snake_segment_t *head = &snake->body[snake->len - 1];
 
    for (i = 0; i < snake->len - 1; i++)
