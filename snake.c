@@ -411,7 +411,7 @@ int eat_gold (snake_t *snake, screen_t *screen)
       screen->high_score = screen->score; /* New high score! */
    }
 
-   return screen->gold
+   return screen->gold;
 }
 
 int main (void)
@@ -432,7 +432,7 @@ int main (void)
 
    sigsetup (SIGINT, sig_handler);
    sigsetup (SIGHUP, sig_handler);
-   sigsetup (SIGTERM, sig_handler)
+   sigsetup (SIGTERM, sig_handler);
 
    do
    {
