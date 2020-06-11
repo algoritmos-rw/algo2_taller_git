@@ -128,7 +128,7 @@ void setup_level (screen_t *screen, snake_t *snake, int level)
    if (1 == level)
    {
       screen->score     = -1500;
-      screen->obstacles = 100;
+      screen->obstacles = 10;
       screen->level     = 1;
       snake->speed      = 14;
       snake->dir        = RIGHT;
