@@ -371,7 +371,7 @@ int collide_self (snake_t *snake)
    int i
    snake_segment_t *head = &snake->body[snake->len - 1];
 
-   for (int i = 0; i < snake->len - 1; i++)
+   for (i = 0; i < snake->len - 1; i++)
    {
       snake_segment_t *body = &snake->body[i];
 
