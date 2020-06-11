@@ -485,7 +485,7 @@ int main (void)
 
    clrscr ()
 
-   return WEXITSTATUS(system ("stty sane"))
+   return WEXITSTATUS(system ("stty sane"));
 }
 
 
