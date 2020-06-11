@@ -371,7 +371,7 @@ int collide_self (snake_t *snake)
    int i
    snake_segment_t *head = &snake->body[snake->len - 1];
 
-   for (i = 0; i < snake->len - 1; i++)
+   for (int i = 0; i < snake->len - 1; i++)
    {
       snake_segment_t *body = &snake->body[i];
 
@@ -409,7 +409,7 @@ int eat_gold (snake_t *snake, screen_t *screen)
       screen->high_score = screen->score; /* New high score! */
    }
 
-   return screen->gold
+   return screen->gold;
 }
 
 int main (void)
@@ -430,7 +430,7 @@ int main (void)
 
    sigsetup (SIGINT, sig_handler);
    sigsetup (SIGHUP, sig_handler);
-   sigsetup (SIGTERM, sig_handler)
+   sigsetup (SIGTERM, sig_handler);
 
    do
    {
