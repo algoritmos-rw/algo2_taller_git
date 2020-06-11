@@ -168,7 +168,7 @@ void setup_level (screen_t *screen, snake_t *snake, int level)
          row = rand () % MAXROW;
          col = rand () % MAXCOL;
       }
-      while (screen->grid[row][col] != ' ')
+      while (screen->grid[row][col] != ' ');
 
       if (i < screen->obstacles)
       {
